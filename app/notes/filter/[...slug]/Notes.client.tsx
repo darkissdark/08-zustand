@@ -10,10 +10,9 @@ import css from "./NotesPage.module.css";
 import NoteList from "@/components/NoteList/NoteList";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
+import Link from "next/link";
 
 type NotesProps = {
   tag?: FilterTag;
@@ -22,7 +21,6 @@ type NotesProps = {
 const Notes = ({ tag }: NotesProps) => {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [debouncedSearch] = useDebounce(search, 500);
 
   useEffect(() => {
@@ -45,13 +43,6 @@ const Notes = ({ tag }: NotesProps) => {
     placeholderData: (previousData) => previousData,
   });
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
   const handleSearch = (value: string) => {
     setSearch(value);
     setPage(1);
@@ -72,9 +63,9 @@ const Notes = ({ tag }: NotesProps) => {
             onPageChange={handlePageChange}
           />
         )}
-        <button className={css.button} onClick={openModal}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
       <main>
         {(isLoading || isFetching) && <Loader />}
@@ -83,11 +74,6 @@ const Notes = ({ tag }: NotesProps) => {
           <NoteList notes={data.notes} />
         )}
       </main>
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onSuccess={closeModal} onCancel={closeModal} />
-        </Modal>
-      )}
     </div>
   );
 };

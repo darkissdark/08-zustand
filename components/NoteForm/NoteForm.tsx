@@ -7,7 +7,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface NoteFormProps {
   onSuccess: () => void;
-  onCancel: () => void;
 }
 
 const tags: NoteTag[] = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
@@ -18,7 +17,7 @@ const validationSchema = Yup.object({
   tag: Yup.mixed<NoteTag>().oneOf(tags).required("Required"),
 });
 
-const NoteForm = ({ onSuccess, onCancel }: NoteFormProps) => {
+const NoteForm = ({ onSuccess }: NoteFormProps) => {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -83,13 +82,6 @@ const NoteForm = ({ onSuccess, onCancel }: NoteFormProps) => {
           </div>
 
           <div className={css.actions}>
-            <button
-              type="button"
-              className={css.cancelButton}
-              onClick={onCancel}
-            >
-              Cancel
-            </button>
             <button
               type="submit"
               className={css.submitButton}
