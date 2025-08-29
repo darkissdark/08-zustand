@@ -8,7 +8,7 @@ const CreateNoteClientPage = () => {
     <main className={css.main}>
       <div className={css.container}>
         <h1 className={css.title}>Create note</h1>
-        <NoteForm onSuccess={() => console.log("Note created successfully!")} />
+        <NoteForm />
       </div>
     </main>
   );

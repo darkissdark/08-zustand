@@ -4,7 +4,7 @@ import CreateNoteClient from "./CreateNote.client";
 
 export async function generateMetadata() {
   const title = "Create Note";
-  const description = "Create a new note";
+  const description = "Create a new note with title, content, and tags";
   return {
     title,
     description,
