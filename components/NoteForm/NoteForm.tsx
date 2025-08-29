@@ -31,8 +31,9 @@ const NoteForm = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["notes"] });
+      await queryClient.refetchQueries({ queryKey: ["notes"] });
       clearDraft();
       router.back();
     },
