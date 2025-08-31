@@ -1,8 +1,9 @@
 import { HydrationBoundary } from "@tanstack/react-query";
 import { SITE_NAME, OG_IMAGE, SITE_DOMAIN } from "@/config/metadata";
 import CreateNoteClient from "./CreateNote.client";
+import { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const title = "Create Note";
   const description = "Create a new note with title, content, and tags";
   return {
