@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api";
@@ -15,19 +15,6 @@ const NoteForm = () => {
   const queryClient = useQueryClient();
   const { draft, setDraft, clearDraft } = useNoteStore();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  useEffect(() => {
-    if (!isInitialized) {
-      const hasDraftData = draft.title || draft.content || draft.tag !== "Todo";
-
-      if (!hasDraftData) {
-        setDraft({ title: "", content: "", tag: "Todo" });
-      }
-
-      setIsInitialized(true);
-    }
-  }, [isInitialized, draft, setDraft]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: createNote,
